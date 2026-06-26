@@ -1,18 +1,31 @@
-name: Deploy Website to HandyHost
+name: Build and Deploy Website
 
 on:
   push:
     branches:
-      - main
+      - main  # или master, проверьте имя вашей ветки
 
 jobs:
-  web-deploy:
-    name: Deploy
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
     - name: Get latest code
       uses: actions/checkout@v3
-    
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-size: 18
+
+    - name: Install Bun
+      uses: oven-sh/setup-bun@v1
+
+    - name: Install Dependencies
+      run: bun install
+
+    - name: Build Static Site
+      run: bun run build  # Эта команда превратит исходный код в HTML-страницы
+
     - name: Sync files to Host
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
@@ -21,4 +34,5 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         port: 34716
         protocol: sftp
+        local-dir: dist/  # GitHub отправит на хостинг ТОЛЬКО готовую папку dist, а не исходный код!
         server-dir: www/akeytou.ru/
