@@ -3,7 +3,7 @@ name: Deploy Website to HandyHost
 on:
   push:
     branches:
-      - main  # Если ваша главная ветка называется master, замените main на master
+      - main
 
 jobs:
   web-deploy:
@@ -20,4 +20,5 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         port: 34716
+        protocol: sftp
         server-dir: www/akeytou.ru/
