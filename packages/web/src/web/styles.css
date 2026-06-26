@@ -1,0 +1,238 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap");
+
+@import "tailwindcss";
+
+:root {
+  --black: #0a0a0a;
+  --pink: #ff2e93;
+  --blue: #2540ff;
+  --yellow: #ffe600;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: "Space Grotesk", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Typography */
+.font-anton {
+  font-family: "Oswald", sans-serif;
+}
+.font-mono-custom {
+  font-family: "Space Mono", monospace;
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+}
+
+/* Hard shadow sticker */
+.sticker {
+  box-shadow: 6px 6px 0 var(--black);
+  border: 2px solid var(--black);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.sticker:hover {
+  box-shadow: 2px 2px 0 var(--black);
+  transform: translate(4px, 4px);
+}
+.sticker-white {
+  box-shadow: 6px 6px 0 var(--white);
+  border: 2px solid var(--white);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.sticker-white:hover {
+  box-shadow: 2px 2px 0 var(--white);
+  transform: translate(4px, 4px);
+}
+.sticker-yellow {
+  box-shadow: 6px 6px 0 var(--yellow);
+  border: 2px solid var(--yellow);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.sticker-yellow:hover {
+  box-shadow: 2px 2px 0 var(--yellow);
+  transform: translate(4px, 4px);
+}
+.sticker-pink {
+  box-shadow: 6px 6px 0 var(--pink);
+  border: 2px solid var(--black);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.sticker-pink:hover {
+  box-shadow: 2px 2px 0 var(--pink);
+  transform: translate(4px, 4px);
+}
+
+/* Marquee */
+.marquee-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--yellow);
+  color: var(--black);
+  padding: 10px 0;
+}
+.marquee-track {
+  display: inline-flex;
+  animation: marquee 60s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Sticky nav */
+.sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 3px solid var(--black);
+  backdrop-filter: blur(6px);
+}
+.sticky-nav-scrolled {
+  box-shadow: 0 4px 0 var(--pink);
+}
+
+/* Floating bubbles */
+.bubble {
+  border-radius: 50%;
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.12;
+}
+.bubble-float {
+  animation: float 7s ease-in-out infinite;
+}
+.bubble-float-slow {
+  animation: float 11s ease-in-out infinite reverse;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bubble-float,
+  .bubble-float-slow {
+    animation: none;
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(5deg);
+  }
+}
+
+/* Slot machine */
+.slot-reel {
+  overflow: hidden;
+  position: relative;
+}
+.slot-strip {
+  will-change: transform;
+}
+
+/* Accordion */
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-content.open {
+  max-height: 300px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-content {
+    transition: none;
+  }
+}
+
+/* Halftone dots pattern */
+.halftone {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.halftone-dark {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Zigzag divider */
+.zigzag-bottom {
+  clip-path: polygon(
+    0% 0%, 4% 100%, 8% 0%, 12% 100%, 16% 0%, 20% 100%, 24% 0%, 28% 100%,
+    32% 0%, 36% 100%, 40% 0%, 44% 100%, 48% 0%, 52% 100%, 56% 0%, 60% 100%,
+    64% 0%, 68% 100%, 72% 0%, 76% 100%, 80% 0%, 84% 100%, 88% 0%, 92% 100%,
+    96% 0%, 100% 100%, 100% 0%
+  );
+  height: 24px;
+  margin-top: -1px;
+}
+
+/* Review cards swipe */
+.reviews-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 12px;
+}
+.reviews-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.reviews-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+.reviews-scroll::-webkit-scrollbar-thumb {
+  background: var(--pink);
+  border-radius: 2px;
+}
+.review-card {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.85);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+/* Countdown */
+.countdown-block {
+  border: 2px solid var(--yellow);
+  color: var(--yellow);
+  text-align: center;
+}
