@@ -1,0 +1,23 @@
+name: Deploy Website to HandyHost
+
+on:
+  push:
+    branches:
+      - main  # Если ваша главная ветка называется master, замените main на master
+
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get latest code
+      uses: actions/checkout@v3
+    
+    - name: Sync files to Host
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        port: 34716
+        server-dir: www/akeytou.ru/
